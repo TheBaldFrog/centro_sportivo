@@ -3,52 +3,53 @@
 require_once "config.php";
 
 // Define variables and initialize with empty values
-$name = $address = $salary = "";
-$name_err = $address_err = $salary_err = "";
+$nome = $cognome = $dataNascita = "";
+$nome_err = $cognome_err = $dataNascita_err = "";
 
 // Processing form data when form is submitted
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Validate name
-    $input_name = trim($_POST["name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
+    // Validate nome
+    $input_nome = trim($_POST["nome"]);
+    if (empty($input_nome)) {
+        $nome_err = "Please enter a name.";
+    } elseif (!filter_var($input_nome, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $nome_err = "Please enter a valid name.";
     } else {
-        $name = $input_name;
+        $nome = $input_nome;
     }
 
-    // Validate address
-    $input_address = trim($_POST["address"]);
-    if (empty($input_address)) {
-        $address_err = "Please enter an address.";
+    // Validate cognome
+    $input_cognome = trim($_POST["cognome"]);
+    if (empty($input_cognome)) {
+        $cognome_err = "Please enter an address.";
     } else {
-        $address = $input_address;
+        $cognome = $input_cognome;
     }
 
-    // Validate salary
-    $input_salary = trim($_POST["salary"]);
-    if (empty($input_salary)) {
-        $salary_err = "Please enter the salary amount.";
-    } elseif (!ctype_digit($input_salary)) {
-        $salary_err = "Please enter a positive integer value.";
+    // Validate dataNascita
+    $input_dataNascita = trim($_POST["dataNascita"]);
+    if (empty($input_dataNascita)) {
+        $dataNascita_err = "Please enter the salary amount.";
+    } elseif (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $dataNascita)) {
+        $dataNascita_err = "Please enter a positive integer value.";
     } else {
-        $salary = $input_salary;
+        $dataNascita = $input_dataNascita;
     }
 
     // Check input errors before inserting in database
-    if (empty($name_err) && empty($address_err) && empty($salary_err)) {
+    if (empty($nome_err) && empty($cognome_err) && empty($dataNascita_err)) {
         // Prepare an insert statement
-        $sql = "INSERT INTO employees (name, address, salary) VALUES (?, ?, ?)";
+        echo $dataNascita;
+        $sql = "INSERT INTO utente (nome, cognome, data_nascita) VALUES (?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sss", $param_name, $param_address, $param_salary);
+            mysqli_stmt_bind_param($stmt, "sss", $param_nome, $param_cognome, $param_dataNascita);
 
             // Set parameters
-            $param_name = $name;
-            $param_address = $address;
-            $param_salary = $salary;
+            $param_nome = $nome;
+            $param_cognome = $cognome;
+            $param_dataNascita = $dataNascita;
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -93,19 +94,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <p>Please fill this form and submit to add employee record to the database.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err; ?></span>
+                            <label>Nome</label>
+                            <input type="text" name="nome" class="form-control <?php echo (!empty($nome_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $nome; ?>">
+                            <span class="invalid-feedback"><?php echo $nome_err; ?></span>
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
-                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $address_err; ?></span>
+                            <label>Cognome</label>
+                            <input type="text" name="cognome" class="form-control <?php echo (!empty($cognome_err)) ? 'is-invalid' : ''; ?>"><?php echo $cognome; ?></input>
+                            <span class="invalid-feedback"><?php echo $cognome_err; ?></span>
                         </div>
                         <div class="form-group">
-                            <label>Salary</label>
-                            <input type="text" name="salary" class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $salary; ?>">
-                            <span class="invalid-feedback"><?php echo $salary_err; ?></span>
+                            <label>Data Nascita</label>
+                            <input type="date" name="dataNascita" class="form-control <?php echo (!empty($dataNascita_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $dataNascita; ?>">
+                            <span class="invalid-feedback"><?php echo $dataNascita_err; ?></span>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Submit">
                         <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
