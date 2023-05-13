@@ -4,8 +4,11 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     // Include config file
     require_once "config.php";
 
+    $tbName = $_POST['tb'];
+    echo $tbName;
+
     // Prepare a delete statement
-    $sql = "DELETE FROM utente WHERE id = ?";
+    $sql = "DELETE FROM $tbName WHERE id = ?";
 
     if ($stmt = mysqli_prepare($link, $sql)) {
         // Bind variables to the prepared statement as parameters
@@ -20,6 +23,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
             header("location: index.php");
             exit();
         } else {
+            echo $stmt->error;
             echo "Oops! Something went wrong. Please try again later.";
         }
     }
@@ -63,7 +67,8 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="alert alert-danger">
                             <input type="hidden" name="id" value="<?php echo trim($_GET["id"]); ?>" />
-                            <p>Are you sure you want to delete this employee record?</p>
+                            <input type="hidden" name="tb" value="<?php echo trim($_GET["tb"]); ?>" />
+                            <p>Are you sure you want to delete <?php echo "id: " . $_GET["id"] . $_GET["tb"] ?> record?</p>
                             <p>
                                 <input type="submit" value="Yes" class="btn btn-danger">
                                 <a href="index.php" class="btn btn-secondary">No</a>
