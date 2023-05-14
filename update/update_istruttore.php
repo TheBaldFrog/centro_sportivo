@@ -1,63 +1,64 @@
 <?php
 // Include config file
-require_once "config.php";
+require_once "../config.php";
 
 // Define variables and initialize with empty values
-$name = $address = $salary = "";
-$name_err = $address_err = $salary_err = "";
+$nome = $cognome = $descrizione = "";
+$nome_err = $cognome_err = $descrizione_err = "";
 
 // Processing form data when form is submitted
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
     // Get hidden input value
     $id = $_POST["id"];
 
-    // Validate name
-    $input_name = trim($_POST["name"]);
-    if (empty($input_name)) {
-        $name_err = "Please enter a name.";
-    } elseif (!filter_var($input_name, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
-        $name_err = "Please enter a valid name.";
+    // Validate nome
+    $input_nome = trim($_POST["nome"]);
+    if (empty($input_nome)) {
+        $nome_err = "Please enter a name.";
+    } elseif (!filter_var($input_nome, FILTER_VALIDATE_REGEXP, array("options" => array("regexp" => "/^[a-zA-Z\s]+$/")))) {
+        $nome_err = "Please enter a valid name.";
     } else {
-        $name = $input_name;
+        $nome = $input_nome;
     }
 
-    // Validate address address
-    $input_address = trim($_POST["address"]);
-    if (empty($input_address)) {
-        $address_err = "Please enter an address.";
+    // Validate cognome
+    $input_cognome = trim($_POST["cognome"]);
+    if (empty($input_cognome)) {
+        $cognome_err = "Please enter the salary amount.";
     } else {
-        $address = $input_address;
+        $cognome = $input_cognome;
     }
 
-    // Validate salary
-    $input_salary = trim($_POST["salary"]);
-    if (empty($input_salary)) {
-        $salary_err = "Please enter the salary amount.";
-    } elseif (!ctype_digit($input_salary)) {
-        $salary_err = "Please enter a positive integer value.";
+    // Validate dataNascita
+    $input_descrizione = trim($_POST["descrizione"]);
+    if (empty($input_descrizione)) {
+        $descrizione_err = "Inserisci la descrizione.";
+    } elseif (preg_match("/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$/", $descrizione)) {
+        $descrizione_err = "Inserisci la descrizione.";
     } else {
-        $salary = $input_salary;
+        $descrizione = $input_descrizione;
     }
 
     // Check input errors before inserting in database
-    if (empty($name_err) && empty($address_err) && empty($salary_err)) {
+    if (empty($nome_err) && empty($cognome_err) && empty($descrizione_err)) {
         // Prepare an update statement
-        $sql = "UPDATE employees SET name=?, address=?, salary=? WHERE id=?";
+        //$sql = "UPDATE employees SET name=?, address=?, salary=? WHERE id=?";
+        $sql = "UPDATE istruttore SET nome=?, cognome=?, descrizione=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sssi", $param_name, $param_address, $param_salary, $param_id);
+            mysqli_stmt_bind_param($stmt, "sssi", $param_nome, $param_cognome, $param_descrizione, $param_id);
 
             // Set parameters
-            $param_name = $name;
-            $param_address = $address;
-            $param_salary = $salary;
+            $param_nome = $nome;
+            $param_cognome = $cognome;
+            $param_descrizione = $descrizione;
             $param_id = $id;
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
                 // Records updated successfully. Redirect to landing page
-                $lastPath = file_get_contents('config.txt');
+                $lastPath = file_get_contents('../config.txt');
                 header("location: $lastPath");
                 exit();
             } else {
@@ -78,7 +79,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         $id =  trim($_GET["id"]);
 
         // Prepare a select statement
-        $sql = "SELECT * FROM employees WHERE id = ?";
+        $sql = "SELECT * FROM istruttore WHERE id = ?";
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
             mysqli_stmt_bind_param($stmt, "i", $param_id);
@@ -96,9 +97,9 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                     $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
 
                     // Retrieve individual field value
-                    $name = $row["name"];
-                    $address = $row["address"];
-                    $salary = $row["salary"];
+                    $nome = $row["nome"];
+                    $cognome = $row["cognome"];
+                    $descrizione = $row["descrizione"];
                 } else {
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -143,31 +144,34 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
             <div class="row">
                 <div class="col-md-12">
                     <h2 class="mt-5">Aggiorna Record</h2>
-                    <p>Please edit the input values and submit to update the employee record.</p>
+                    <p>Compila questo modulo</p>
                     <form action="<?php echo htmlspecialchars(basename($_SERVER['REQUEST_URI'])); ?>" method="post">
                         <div class="form-group">
-                            <label>Name</label>
-                            <input type="text" name="name" class="form-control <?php echo (!empty($name_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $name; ?>">
-                            <span class="invalid-feedback"><?php echo $name_err; ?></span>
+                            <label>Nome</label>
+                            <input type="text" name="nome" class="form-control <?php echo (!empty($nome_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $nome; ?>">
+                            <span class="invalid-feedback"><?php echo $nome_err; ?></span>
                         </div>
                         <div class="form-group">
-                            <label>Address</label>
-                            <textarea name="address" class="form-control <?php echo (!empty($address_err)) ? 'is-invalid' : ''; ?>"><?php echo $address; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $address_err; ?></span>
+                            <label>Cognome</label>
+                            <textarea name="cognome" class="form-control <?php echo (!empty($cognome_err)) ? 'is-invalid' : ''; ?>"><?php echo $cognome; ?></textarea>
+                            <span class="invalid-feedback"><?php echo $cognome_err; ?></span>
                         </div>
                         <div class="form-group">
-                            <label>Salary</label>
-                            <input type="text" name="salary" class="form-control <?php echo (!empty($salary_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $salary; ?>">
-                            <span class="invalid-feedback"><?php echo $salary_err; ?></span>
+                            <label>Descrizione</label>
+                            <textarea name="descrizione" rows="4" class="form-control <?php echo (!empty($descrizione_err)) ? 'is-invalid' : ''; ?>"><?php echo $descrizione; ?></textarea>
+                            <span class="invalid-feedback"><?php echo $descrizione_err; ?></span>
                         </div>
+
                         <input type="hidden" name="id" value="<?php echo $id; ?>" />
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Invio">
+                        <a href="<?php echo file_get_contents('../config.txt'); ?>" class="btn btn-secondary ml-2">Annulla</a>
                     </form>
                 </div>
             </div>
         </div>
     </div>
+
+    <script src="script.js"></script>
 </body>
 
 </html>

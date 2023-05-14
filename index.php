@@ -11,7 +11,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
 
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -224,10 +224,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                     </div>
                 </div>
 
-                <!-- <?php
-                        // bro tables
-                        require("broo/bro.php");
-                        ?> -->
+                <div class="footer" style="height: 250px;"></div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

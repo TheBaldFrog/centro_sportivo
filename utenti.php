@@ -4,7 +4,7 @@ file_put_contents('config.txt', $lastPath);
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="it">
 
 <head>
     <meta charset="UTF-8">
@@ -35,7 +35,7 @@ file_put_contents('config.txt', $lastPath);
                     <div class="col-auto col-md-11">
                         <div class="mt-3 mb-3 clearfix">
                             <h2 class="pull-left">Utenti</h2>
-                            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
+                            <a href="create/create_utente.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
                         </div>
                         <?php
                         // Include config file
@@ -64,7 +64,7 @@ file_put_contents('config.txt', $lastPath);
                                     echo "<td>" . $row['data_nascita'] . "</td>";
                                     echo "<td>";
                                     echo "<div class='d-flex justify-content-around'>";
-                                    echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                    echo '<a href="update/update_utente.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                     echo '<a href="delete.php?id=' . $row['id'] . '&tb=utente" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                     echo "</div>";
                                     echo "</td>";
@@ -88,7 +88,7 @@ file_put_contents('config.txt', $lastPath);
                     <div class="col-auto col-md-11">
                         <div class="mt-5 mb-3 clearfix">
                             <h2 class="pull-left">Istruttori</h2>
-                            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
+                            <a href="create/create_istruttore.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
                         </div>
                         <?php
                         // Include config file
@@ -114,11 +114,16 @@ file_put_contents('config.txt', $lastPath);
                                     echo "<td>" . $row['id'] . "</td>";
                                     echo "<td>" . $row['nome'] . "</td>";
                                     echo "<td>" . $row['cognome'] . "</td>";
-                                    echo "<td>" . $row['descrizione'] . "</td>";
+
+                                    echo "<td style='padding: 0.3rem;'>";
+                                    echo '<textarea class="form-control" id="text" name="text" maxlength="200" rows="4" placeholder="Decrizione" >';
+                                    echo  $row['descrizione'];
+                                    echo '</textarea>';
+                                    echo "</td>";
                                     echo "<td>";
                                     echo "<div class='d-flex justify-content-around'>";
-                                    echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
-                                    echo '<a href="delete.php?id=' . $row['id'] . '" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
+                                    echo '<a href="update/update_istruttore.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                    echo '<a href="delete.php?id=' . $row['id'] . '&tb=istruttore" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                     echo "</div>";
                                     echo "</td>";
                                     echo "</tr>";
@@ -136,6 +141,8 @@ file_put_contents('config.txt', $lastPath);
                         ?>
                     </div>
                 </div>
+
+                <div class="footer" style="height: 250px;"></div>
             </div>
         </div>
         <!-- /#page-content-wrapper -->

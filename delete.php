@@ -73,7 +73,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                             <p>Sei sicuro di voler eliminare il record <?php echo "<b>" . $_GET["id"] . "</b>" . " " . "dalla tabella " . "<b>" . $_GET["tb"] . "</b>" ?></p>
                             <p>
                                 <input type="submit" value="Si" class="btn btn-danger">
-                                <a href="index.php" class="btn btn-secondary">No</a>
+                                <a href="<?php echo file_get_contents('config.txt'); ?>" class="btn btn-secondary ml-2">No</a>
                             </p>
                         </div>
                     </form>
