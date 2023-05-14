@@ -43,7 +43,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                     <div class="col-auto col-md-11">
                         <div class="mt-3 mb-3 clearfix">
                             <h2 class="pull-left">Corsi</h2>
-                            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
+                            <a href="create/create_corso.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
                         </div>
 
                         <?php
@@ -180,7 +180,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                         // Include config file
                         require_once "config.php";
 
-                        // Visualizza inscritti corso tennis
+                        // Visualizza inscritti corso 
                         if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtentiFromCorso'])) {
                             $sql = "SELECT utente.*, prenotazione.data_prenotazione
                             FROM utente
