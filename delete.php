@@ -22,7 +22,6 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
             // Records deleted successfully. Redirect to landing page
             //header("location: index.php");
             $lastPath = file_get_contents('config.txt');
-            echo $lastPath;
             header("location: $lastPath");
             exit();
         } else {
