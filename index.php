@@ -43,7 +43,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                     <div class="col-auto col-md-11">
                         <div class="mt-3 mb-3 clearfix">
                             <h2 class="pull-left">Corsi</h2>
-                            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Add New </a>
+                            <a href="create.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
                         </div>
 
                         <?php
@@ -51,10 +51,10 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                         require_once "config.php";
 
                         // Visualizza corso
-                        $sql = "SELECT corso.*, istruttore.nome 
+                        $sql = "SELECT corso.*, istruttore.nome
                                 FROM corso
                                 Inner Join istruttore on corso.istruttore_id = istruttore.id
-                                Order by corso.nome_id;";
+                                Order by corso.id;";
                         if ($result = mysqli_query($link, $sql)) {
                             if (mysqli_num_rows($result) > 0) {
                                 echo '<table class="table text-nowrap table-bordered table-striped">';
@@ -67,6 +67,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                 echo "<th>Orario Prefissato</th>";
                                 echo "<th>Numero Lezioni</th>";
                                 echo "<th>Costo Iscrizione</th>";
+                                echo "<th>Totali iscritti</th>";
                                 echo "<th style='text-align: center;'>Action</th>";
                                 echo "</tr>";
                                 echo "</thead>";
@@ -80,9 +81,19 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                     echo "<td>" . $row['orario_prefissato'] . "</td>";
                                     echo "<td>" . $row['numero_lezioni'] . "</td>";
                                     echo "<td>" . $row['costo_iscrizione'] . "</td>";
+
+                                    $idCorso = $row['id'];
+                                    $sqltotaliIscritti =        "SELECT COUNT(prenotazione.utente_id)
+                                                                FROM prenotazione
+                                                                WHERE prenotazione.corso_id = $idCorso;";
+
+                                    if ($totaliIscritti = mysqli_query($link, $sqltotaliIscritti)) {
+                                        $rowTotaliIscritti = mysqli_fetch_array($totaliIscritti);
+                                        echo "<td>" . $rowTotaliIscritti[0] . "</td>";
+                                    }
+
                                     echo "<td>";
                                     echo "<div class='d-flex justify-content-around'>";
-                                    echo '<a href="read.php?id=' . $row['id'] . '" class="mr-3 " title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                     echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                     echo '<a href="delete.php?id=' . $row['id'] . '&tb=corso" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                     echo "</div>";
@@ -94,7 +105,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                 // Free result set
                                 mysqli_free_result($result);
                             } else {
-                                echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                                echo '<div class="alert alert-danger"><em>Non è stato trovato nessun record</em></div>';
                             }
                         } else {
                             echo "Oops! Something went wrong. Please try again later.";
@@ -131,10 +142,11 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                                 echo '<option value="" selected disabled hidden>Seleziona</option>';
                                             }
 
-                                            // Visualizza inscritti corso tennis
+                                            // Visualizza inscritti corso
                                             $sql = "SELECT nome_corso.nome
                                                     FROM nome_corso
-                                                    INNER JOIN corso ON nome_corso.nome = corso.nome_id;";
+                                                    INNER JOIN corso ON nome_corso.nome = corso.nome_id
+                                                    ORDER BY corso.id;";
 
                                             if ($result = mysqli_query($link, $sql)) {
                                                 if (mysqli_num_rows($result) > 0) {
@@ -149,7 +161,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                                     // Free result set
                                                     mysqli_free_result($result);
                                                 } else {
-                                                    echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                                                    echo '<div class="alert alert-danger"><em>Non è stato trovato nessun record.</em></div>';
                                                 }
                                             } else {
                                                 echo "Oops! Something went wrong. Please try again later.";
@@ -159,7 +171,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                     </div>
 
                                     <div class="col">
-                                        <input class="btn btn-success" type="submit" value="submit">
+                                        <input class="btn btn-success" type="submit" value="Invio">
                                     </div>
                                 </div>
                             </form>
@@ -202,7 +214,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                     // Free result set
                                     mysqli_free_result($result);
                                 } else {
-                                    echo '<div class="alert alert-danger"><em>No records were found.</em></div>';
+                                    echo '<div class="alert alert-danger"><em>Non è stato trovato nessun record</em></div>';
                                 }
                             } else {
                                 echo "Oops! Something went wrong. Please try again later.";

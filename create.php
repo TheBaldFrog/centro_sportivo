@@ -91,8 +91,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12">
-                    <h2 class="mt-5">Create Record</h2>
-                    <p>Please fill this form and submit to add employee record to the database.</p>
+                    <h2 class="mt-5">Inserisci Record</h2>
+                    <p>Compila questo modulo.</p>
                     <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                         <div class="form-group">
                             <label>Nome</label>
@@ -109,8 +109,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <input type="date" name="dataNascita" class="form-control <?php echo (!empty($dataNascita_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $dataNascita; ?>">
                             <span class="invalid-feedback"><?php echo $dataNascita_err; ?></span>
                         </div>
-                        <input type="submit" class="btn btn-primary" value="Submit">
-                        <a href="index.php" class="btn btn-secondary ml-2">Cancel</a>
+                        <input type="submit" class="btn btn-primary" value="Invio">
+                        <a href="index.php" class="btn btn-secondary ml-2">Annulla</a>
                     </form>
                 </div>
             </div>
