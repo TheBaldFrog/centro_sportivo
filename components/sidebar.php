@@ -2,15 +2,15 @@
 <div id="sidebar-wrapper">
     <ul class="sidebar-nav">
         <li class="sidebar-brand">
-            <a href="#">
-                Start Bootstrap
-            </a>
+            <h3>
+                Admin
+            </h3>
         </li>
         <li>
-            <a href="#">Dashboard</a>
+            <a href="./index.php">Corsi</a>
         </li>
         <li>
-            <a href="#">Shortcuts</a>
+            <a href="./utenti.php">Utenti</a>
         </li>
     </ul>
 </div>

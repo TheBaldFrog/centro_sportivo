@@ -20,7 +20,10 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         // Attempt to execute the prepared statement
         if (mysqli_stmt_execute($stmt)) {
             // Records deleted successfully. Redirect to landing page
-            header("location: index.php");
+            //header("location: index.php");
+            $lastPath = file_get_contents('config.txt');
+            echo $lastPath;
+            header("location: $lastPath");
             exit();
         } else {
             echo $stmt->error;
