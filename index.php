@@ -15,7 +15,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Centro Sportivo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -23,6 +23,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
 
@@ -223,8 +224,28 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                         ?>
                     </div>
                 </div>
-
+                <!-- Footer -->
                 <div class="footer" style="height: 250px;"></div>
+                <footer class="page-footer font-small mt-auto fixed-bottom my-1" style="margin-left: 250px;">
+                    <!-- Copyright -->
+                    <div class="footer-copyright text-center" style=" background-color: white;">
+
+                        <div class="footer" style="height: 5px;"></div>
+
+                        <div class="link d-flex justify-content-center align-items-center">
+                            <span>Centro Sportivo:</span>
+                            <span class="separator" style="width: 0.5rem;"></span>
+                            <a class="d-flex justify-content-center align-items-center" href="https://github.com/TheBaldFrog/EdCivicaSicurezzaInternet" style="text-align: center; text-decoration:none;"> <i class="fa fa-github" style="font-size:24px;"></i></a>
+                        </div>
+                        <p class="desc" style="margin: 0px;">
+                            Colombo Simone - Malagesi Valerio - Moraru Liviu
+                        </p>
+
+                    </div>
+                    <!-- Copyright -->
+
+                </footer>
+                <!-- Footer -->
             </div>
         </div>
         <!-- /#page-content-wrapper -->

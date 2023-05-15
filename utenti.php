@@ -8,7 +8,7 @@ file_put_contents('config.txt', $lastPath);
 
 <head>
     <meta charset="UTF-8">
-    <title>Dashboard</title>
+    <title>Centro Sportivo</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
@@ -116,7 +116,7 @@ file_put_contents('config.txt', $lastPath);
                                     echo "<td>" . $row['cognome'] . "</td>";
 
                                     echo "<td style='padding: 0.3rem;'>";
-                                    echo '<textarea class="form-control" id="text" name="text" maxlength="200" rows="4" placeholder="Decrizione" >';
+                                    echo '<textarea disabled style="background-color: white;" class="form-control" id="text" name="text" maxlength="200" rows="4" placeholder="Decrizione" >';
                                     echo  $row['descrizione'];
                                     echo '</textarea>';
                                     echo "</td>";
