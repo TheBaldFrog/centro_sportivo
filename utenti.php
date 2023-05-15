@@ -142,7 +142,11 @@ file_put_contents('config.txt', $lastPath);
                     </div>
                 </div>
 
-                <div class="footer" style="height: 250px;"></div>
+                <!-- Footer -->
+                <?php
+                echo file_get_contents("components/footer.php");
+                ?>
+                <!-- Footer -->
             </div>
         </div>
         <!-- /#page-content-wrapper -->
