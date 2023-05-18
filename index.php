@@ -43,8 +43,8 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                 <div class="row d-flex justify-content-around">
                     <div class="col-auto col-md-11">
                         <div class="mt-3 mb-3 clearfix">
-                            <h2 class="pull-left">Corsi</h2>
-                            <a href="create/create_corso.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a>
+                            <h2 class="pull-left">Elenco corsi</h2>
+                            <!-- <a href="create/create_corso.php" class="btn btn-success pull-right"><i class="fa fa-plus"></i> Aggiungi </a> -->
                         </div>
 
                         <?php
@@ -52,7 +52,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                         require_once "config.php";
 
                         // Visualizza corso
-                        $sql = "SELECT corso.*, istruttore.nome
+                        $sql = "SELECT corso.*, istruttore.nome, istruttore.cognome
                                 FROM corso
                                 Inner Join istruttore on corso.istruttore_id = istruttore.id
                                 Order by corso.id;";
@@ -77,7 +77,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                     echo "<tr>";
                                     echo "<td>" . $row['id'] . "</td>";
                                     echo "<td>" . $row['nome_id'] . "</td>";
-                                    echo "<td>" . $row['nome'] . "</td>";
+                                    echo "<td>" . $row['nome'] . ' ' . $row['cognome'] . "</td>";
                                     echo "<td>" . $row['giorno_settimana'] . "</td>";
                                     echo "<td>" . $row['orario_prefissato'] . "</td>";
                                     echo "<td>" . $row['numero_lezioni'] . "</td>";
@@ -95,7 +95,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
 
                                     echo "<td>";
                                     echo "<div class='d-flex justify-content-around'>";
-                                    echo '<a href="update.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
+                                    echo '<a href="update/update_corso.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
                                     echo '<a href="delete.php?id=' . $row['id'] . '&tb=corso" title="Delete Record" data-toggle="tooltip"><span class="fa fa-trash"></span></a>';
                                     echo "</div>";
                                     echo "</td>";
@@ -121,11 +121,11 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                         <div class="mt-3 mb-3 clearfix">
                             <?php
                             if (!isset($_POST['formSelectUtentiFromCorso']) || empty($_POST['formSelectUtentiFromCorso'])) {
-                                echo '<h2 class="pull-left">Inscritti corso</h2>';
+                                echo '<h2 class="pull-left">Iscritti corso</h2>';
                             }
 
                             if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtentiFromCorso'])) {
-                                echo "<h2 class='pull-left'>Inscritti corso $hh</h2>";
+                                echo "<h2 class='pull-left'>Iscritti corso $hh</h2>";
                             }
 
                             ?>
@@ -143,7 +143,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                                 echo '<option value="" selected disabled hidden>Seleziona</option>';
                                             }
 
-                                            // Visualizza inscritti corso
+                                            // Visualizza iscritti corso
                                             $sql = "SELECT nome_corso.nome
                                                     FROM nome_corso
                                                     INNER JOIN corso ON nome_corso.nome = corso.nome_id
@@ -181,7 +181,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                         // Include config file
                         require_once "config.php";
 
-                        // Visualizza inscritti corso 
+                        // Visualizza iscritti corso 
                         if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtentiFromCorso'])) {
                             $sql = "SELECT utente.*, prenotazione.data_prenotazione
                             FROM utente
@@ -225,7 +225,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                     </div>
                 </div>
 
-                
+
                 <!-- Footer -->
                 <?php
                 echo file_get_contents("components/footer.php");

@@ -158,7 +158,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                         </div>
                         <div class="form-group">
                             <label>Descrizione</label>
-                            <textarea name="descrizione" rows="4" class="form-control <?php echo (!empty($descrizione_err)) ? 'is-invalid' : ''; ?>"><?php echo $descrizione; ?></textarea>
+                            <textarea name="descrizione" rows="10" class="form-control <?php echo (!empty($descrizione_err)) ? 'is-invalid' : ''; ?>"><?php echo $descrizione; ?></textarea>
                             <span class="invalid-feedback"><?php echo $descrizione_err; ?></span>
                         </div>
 
