@@ -5,6 +5,8 @@ require_once "../config.php";
 // Define variables and initialize with empty values
 $nomeCorso = $nomeIstruttore = $giornoSettimana = "";
 $nomeCorso_err = $nomeIstruttore_err = $giornoSettimana_err = "";
+$appt = $costo = $numLezioni = "";
+$appt_err = $costo_err = $numLezioni_err = "";
 
 // Processing form data when form is submitted
 if (isset($_POST["id"]) && !empty($_POST["id"])) {
@@ -34,23 +36,51 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         $giornoSettimana_err = "Inserisci giornoSettimana.";
     } else {
         $giornoSettimana = $input_giornoSettimana;
-        echo $giornoSettimana;
+    }
+
+    $input_appt = trim($_POST["appt"]);
+    if (empty($input_appt)) {
+        $appt_err = "Inserisci orario";
+    } else {
+        $appt = $input_appt;
+    }
+
+    $input_numLezioni = trim($_POST["numLezioni"]);
+    if (empty($input_numLezioni)) {
+        $numLezioni_err = "Inserisci num Lezioni";
+    } elseif ($input_numLezioni < 0 || $input_numLezioni > 200) {
+        $numLezioni_err = "0 < Numero Lezioni < 200";
+    } else {
+        $numLezioni = $input_numLezioni;
+    }
+
+    $input_costo = trim($_POST["costo"]);
+    if (empty($input_costo)) {
+        $costo_err = "Inserisci costo";
+    } elseif ($input_costo < 0) {
+        $costo_err = "costo > 0";
+    } else {
+        $costo = $input_costo;
+        echo $costo;
     }
 
     // Check input errors before inserting in database
-    if (empty($nomeCorso_err) && empty($nomeIstruttore_err)) {
+    if (empty($nomeCorso_err) && empty($nomeIstruttore_err) && empty($numLezioni_err) && empty($costo_err)) {
         // Prepare an update statement
         //$sql = "UPDATE employees SET name=?, address=?, salary=? WHERE id=?";
-        $sql = "UPDATE corso SET nome_id=?, istruttore_id=?, giorno_settimana=? WHERE id=?";
+        $sql = "UPDATE corso SET nome_id=?, istruttore_id=?, giorno_settimana=?, orario_prefissato=?, numero_lezioni=?, costo_iscrizione=? WHERE id=?";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
             // Bind variables to the prepared statement as parameters
-            mysqli_stmt_bind_param($stmt, "sisi", $param_nomeCorso, $param_nomeIstruttore, $param_giornoSettimana, $param_id);
+            mysqli_stmt_bind_param($stmt, "sissiii", $param_nomeCorso, $param_nomeIstruttore, $param_giornoSettimana, $param_appt, $param_numLezioni, $param_costo, $param_id);
             // Set parameters
             $param_nomeCorso = $nomeCorso;
             $param_nomeIstruttore = $nomeIstruttore;
             $param_giornoSettimana = $giornoSettimana;
+            $param_appt = $appt;
             $param_id = $id;
+            $param_numLezioni = $numLezioni;
+            $param_costo = $costo;
 
             // Attempt to execute the prepared statement
             if (mysqli_stmt_execute($stmt)) {
@@ -68,7 +98,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
     }
 
     // Close connection
-    mysqli_close($link);
+    // mysqli_close($link);
 } else {
     // Check existence of id parameter before processing further
     if (isset($_GET["id"]) && !empty(trim($_GET["id"]))) {
@@ -97,6 +127,9 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                     $nomeCorso = $row["nome_id"];
                     $nomeIstruttore = $row["istruttore_id"];
                     $giornoSettimana = $row["giorno_settimana"];
+                    $appt = $row["orario_prefissato"];
+                    $numLezioni = $row["numero_lezioni"];
+                    $costo = $row["costo_iscrizione"];
                 } else {
                     // URL doesn't contain valid id. Redirect to error page
                     header("location: error.php");
@@ -269,16 +302,23 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
                             <span class="invalid-feedback"><?php echo $giornoSettimana_err; ?></span>
                         </div>
 
-                        <!-- <div class="form-group">
-                            <label>Cognome</label>
-                            <textarea name="cognome" class="form-control <?php echo (!empty($cognome_err)) ? 'is-invalid' : ''; ?>"><?php echo $cognome; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $cognome_err; ?></span>
-                        </div> -->
-                        <!-- <div class="form-group">
-                            <label>Descrizione</label>
-                            <textarea name="descrizione" rows="10" class="form-control <?php echo (!empty($descrizione_err)) ? 'is-invalid' : ''; ?>"><?php echo $descrizione; ?></textarea>
-                            <span class="invalid-feedback"><?php echo $descrizione_err; ?></span>
-                        </div> -->
+                        <div class="form-group">
+                            <label>Orario (09:00 - 20:00)</label>
+                            <input type="time" name="appt" min="09:00" max="20:00" required class="form-control <?php echo (!empty($appt_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $appt; ?>">
+                            <span class="invalid-feedback"><?php echo $appt_err; ?></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Numero Lezioni</label>
+                            <input type="text" name="numLezioni" class="form-control <?php echo (!empty($numLezioni_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $numLezioni; ?>">
+                            <span class="invalid-feedback"><?php echo $numLezioni_err; ?></span>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Costo iscrizione</label>
+                            <input type="text" name="costo" class="form-control <?php echo (!empty($costo_err)) ? 'is-invalid' : ''; ?>" value="<?php echo $costo; ?>">
+                            <span class="invalid-feedback"><?php echo $costo_err; ?></span>
+                        </div>
 
                         <input type="hidden" name="id" value="<?php echo $id; ?>" />
                         <input type="submit" class="btn btn-primary" value="Invio">

@@ -12,6 +12,9 @@
         <li>
             <a href="./utenti.php">Utenti</a>
         </li>
+        <li>
+            <a href="./istruttori.php">Istruttori</a>
+        </li>
     </ul>
 </div>
 <!-- /#sidebar-wrapper -->

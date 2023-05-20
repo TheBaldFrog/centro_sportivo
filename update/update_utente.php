@@ -170,7 +170,7 @@ if (isset($_POST["id"]) && !empty($_POST["id"])) {
         </div>
     </div>
 
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 </body>
 
 </html>

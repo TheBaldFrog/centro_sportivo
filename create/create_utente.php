@@ -39,7 +39,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Check input errors before inserting in database
     if (empty($nome_err) && empty($cognome_err) && empty($dataNascita_err)) {
         // Prepare an insert statement
-        echo $dataNascita;
         $sql = "INSERT INTO utente (nome, cognome, data_nascita) VALUES (?, ?, ?)";
 
         if ($stmt = mysqli_prepare($link, $sql)) {
