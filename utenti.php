@@ -45,13 +45,14 @@ file_put_contents('config.txt', $lastPath);
                         $sql = "SELECT * FROM utente;";
                         if ($result = mysqli_query($link, $sql)) {
                             if (mysqli_num_rows($result) > 0) {
-                                echo '<table class="table text-nowrap table-bordered table-striped">';
+                                echo '<table class="table text-nowrap table-bordered table-striped table-hover">';
                                 echo "<thead>";
                                 echo "<tr>";
                                 echo "<th>#</th>";
                                 echo "<th>Nome</th>";
                                 echo "<th>Cognome</th>";
                                 echo "<th>Data nascita</th>";
+                                echo "<th style='width: 16px'>Corsi</th>";
                                 echo "<th style='text-align: center;'>Action</th>";
                                 echo "</tr>";
                                 echo "</thead>";
@@ -62,6 +63,30 @@ file_put_contents('config.txt', $lastPath);
                                     echo "<td>" . $row['nome'] . "</td>";
                                     echo "<td>" . $row['cognome'] . "</td>";
                                     echo "<td>" . $row['data_nascita'] . "</td>";
+
+                                    $idUser = $row['id'];
+                                    $sqlGetCorsi = " SELECT
+                                                        corso.nome_id as corso_nome
+                                                    FROM utente
+                                                        INNER JOIN prenotazione on prenotazione.utente_id = utente.id
+                                                        INNER JOIN corso on prenotazione.corso_id = corso.id
+                                                    WHERE utente_id = $idUser
+                                                    ORDER BY corso_nome;";
+                                    if ($listaCorsi = mysqli_query($link, $sqlGetCorsi)) {
+                                        if (mysqli_num_rows($listaCorsi) > 0) {
+                                            // echo "<td style='display: flex;align-items: center;justify-content: center; text-align: center;'>";
+                                            echo "<td style='display: flex;align-items: center;justify-content: center; text-align: center;'>";
+                                            while ($rowListaCorsi = mysqli_fetch_array($listaCorsi)) {
+                                                $nomeCorso = $rowListaCorsi[0];
+                                                echo "<span class='corso' style='padding-left: 0.5rem; padding-right: 0.5rem;'>$nomeCorso</span>";
+                                            }
+                                            echo "</td>";
+                                        } else {
+                                            echo "<td ></td>";
+                                        }
+                                    }
+
+
                                     echo "<td>";
                                     echo "<div class='d-flex justify-content-around'>";
                                     echo '<a href="update/update_utente.php?id=' . $row['id'] . '" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';

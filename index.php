@@ -58,7 +58,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                                 Order by corso.id;";
                         if ($result = mysqli_query($link, $sql)) {
                             if (mysqli_num_rows($result) > 0) {
-                                echo '<table class="table text-nowrap table-bordered table-striped">';
+                                echo '<table class="table text-nowrap table-bordered table-striped table-hover">';
                                 echo "<thead>";
                                 echo "<tr>";
                                 echo "<th>#</th>";
@@ -191,7 +191,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
 
                             if ($result = mysqli_query($link, $sql)) {
                                 if (mysqli_num_rows($result) > 0) {
-                                    echo '<table class="table text-nowrap table-bordered table-striped">';
+                                    echo '<table class="table text-nowrap table-bordered table-striped table-hover">';
                                     echo "<thead>";
                                     echo "<tr>";
                                     echo "<th>#</th>";
