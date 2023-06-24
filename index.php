@@ -187,7 +187,7 @@ if (isset($_POST['formSelectUtentiFromCorso']) && !empty($_POST['formSelectUtent
                             FROM utente
                             INNER JOIN prenotazione ON utente.id = prenotazione.utente_id
                             INNER JOIN corso ON corso.id = prenotazione.corso_id
-                            WHERE corso.nome_id = '$hh';";
+                            WHERE corso.nome_id = '$hh';";  
 
                             if ($result = mysqli_query($link, $sql)) {
                                 if (mysqli_num_rows($result) > 0) {

@@ -12,7 +12,7 @@
             <a class="d-flex justify-content-center align-items-center" href="https://github.com/TheBaldFrog/centro_sportivo" style="text-align: center; text-decoration:none;"> <i class="fa fa-github" style="font-size:30px; color:#2dc750; border-color:#28a745; background-color:white;"></i></a>
         </div>
         <p class="desc" style="margin: 0px;">
-            Colombo Simone - Malagesi Valerio - Moraru Liviu
+            Moraru Liviu
         </p>
 
     </div>

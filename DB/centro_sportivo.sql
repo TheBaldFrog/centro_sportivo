@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Mag 14, 2023 alle 23:13
+-- Creato il: Giu 24, 2023 alle 18:30
 -- Versione del server: 10.4.27-MariaDB
 -- Versione PHP: 8.0.25
 
@@ -20,6 +20,8 @@ SET time_zone = "+00:00";
 --
 -- Database: `centro_sportivo`
 --
+CREATE DATABASE IF NOT EXISTS `centro_sportivo` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `centro_sportivo`;
 
 -- --------------------------------------------------------
 
@@ -42,10 +44,10 @@ CREATE TABLE `corso` (
 --
 
 INSERT INTO `corso` (`id`, `nome_id`, `istruttore_id`, `giorno_settimana`, `orario_prefissato`, `numero_lezioni`, `costo_iscrizione`) VALUES
-(1, 'tennis', 3, 'lunedì', '12:00:00', 34, 100),
+(1, 'tennis', 3, 'lunedì', '13:00:00', 35, 105),
 (2, 'calcio', 1, 'martedì', '14:00:00', 23, 100),
 (3, 'nuoto', 4, 'giovedì', '16:00:00', 15, 150),
-(10, 'golf', 4, 'mercoredì', '18:00:00', 26, 125);
+(11, 'golf', 4, 'domenica', '15:00:00', 0, 200);
 
 -- --------------------------------------------------------
 
@@ -65,16 +67,16 @@ CREATE TABLE `istruttore` (
 --
 
 INSERT INTO `istruttore` (`id`, `nome`, `cognome`, `descrizione`) VALUES
-(1, 'Giuseppe', 'Garibaldi', 'abile giocatore di golf vincit'),
-(2, 'Alessandro', 'Poretti', 'istruttore di calcio dal 1984 '),
-(3, 'Dwayne', 'Jhonson', 'attore e wrestler conosciuto c'),
-(4, 'Piero', 'Birbini', 'vinceva sempre a racchettoni s'),
-(5, 'Soshita', 'Nakagata', 'un nome un programma'),
-(6, 'Federica', 'Pellegrini', 'ottima istruttrice di nuoto ma'),
-(7, 'AlbertT', 'fdsf', 'gwrseigofjweioajfiosejnkldsfjv'),
+(1, 'Marco', 'Rossi', 'Marco Rossi è un istruttore sportivo specializzato in pallavolo. Ha una vasta esperienza nell’insegnamento della disciplina a livello amatoriale e agonistico. Marco è molto appassionato del suo lavoro e si dedica con entusiasmo alla formazione dei suoi allievi, aiutandoli a migliorare le loro abilità tecniche e a raggiungere i loro obiettivi sportivi. Con la sua competenza e il suo approccio motivazionale, Marco è in grado di trasmettere ai suoi allievi la passione per lo sport e per la vita sana.'),
+(2, 'Giulia', 'Bianchi', 'Giulia Bianchi è un’istruttrice sportiva specializzata in nuoto. Ha una vasta esperienza nell’insegnamento della disciplina a livello amatoriale e agonistico. Giulia è molto appassionata del suo lavoro e si dedica con entusiasmo alla formazione dei suoi allievi, aiutandoli a migliorare le loro abilità tecniche e a raggiungere i loro obiettivi sportivi. Con la sua competenza e il suo approccio motivazionale, Giulia è in grado di trasmettere ai suoi allievi la passione per lo sport e per la vita sana.'),
+(3, 'Andrea', 'Conti', 'Andrea Conti è un istruttore sportivo specializzato in calcio. Ha una vasta esperienza nell’insegnamento della disciplina a livello amatoriale e agonistico. Andrea è molto appassionato del suo lavoro e si dedica con entusiasmo alla formazione dei suoi allievi, aiutandoli a migliorare le loro abilità tecniche e a raggiungere i loro obiettivi sportivi. Con la sua competenza e il suo approccio motivazionale, Andrea è in grado di trasmettere ai suoi allievi la passione per lo sport e per la vita sana.'),
+(4, 'Federica', 'Lombardi ', ' Federica Lombardi è un’istruttrice sportiva specializzata in tennis. Ha una vasta esperienza nell’insegnamento della disciplina a livello amatoriale e agonistico. Federica è molto appassionata del suo lavoro e si dedica con entusiasmo alla formazione dei suoi allievi, aiutandoli a migliorare le loro abilità tecniche e a raggiungere i loro obiettivi sportivi. Con la sua competenza e il suo approccio motivazionale, Federica è in grado di trasmettere ai suoi allievi la passione per lo sport e per la vita sana.'),
+(5, 'Alessandra', 'Romano', 'Alessandra è un’istruttrice sportiva altamente qualificata e appassionata. Ha una vasta esperienza in diverse discipline sportive e sa come motivare e incoraggiare i suoi allievi a raggiungere i loro obiettivi. È sempre pronta ad aiutare e a fornire consigli utili per migliorare le prestazioni. Alessandra è molto attenta alle esigenze dei suoi allievi e sa come adattare gli allenamenti alle loro capacità e obiettivi. La sua passione per lo sport è contagiosa e i suoi allievi apprezzano il suo entusiasmo e la sua dedizione. Alessandra è sempre alla ricerca di nuove sfide e sa come spingere i suoi allievi a superare i loro limiti in modo sicuro ed efficace.'),
+(6, 'Federica', 'Pellegrini', 'Federica Pellegrini è un istruttore di nuoto professionista con anni di esperienza nell’insegnamento della disciplina. La sua passione per il nuoto e la sua dedizione al miglioramento continuo lo rendono un insegnante eccezionale. Marco è sempre pronto ad aiutare i suoi allievi a migliorare le loro abilità in acqua e a superare i loro limiti. La sua energia positiva e il suo entusiasmo contagioso ispirano tutti coloro che lo incontrano. Con la sua guida esperta e il suo incoraggiamento costante, Marco aiuta i suoi allievi a diventare nuotatori più forti e sicuri di sé.'),
+(7, 'Erika', 'Vigliotti', 'Giulia Bianchi è un’istruttrice di yoga professionista con anni di esperienza nell’insegnamento della disciplina. La sua passione per lo yoga e la sua dedizione al miglioramento continuo la rendono un’insegnante eccezionale. Giulia è sempre pronta ad aiutare i suoi allievi a trovare l’equilibrio tra corpo e mente e a superare i loro limiti. La sua energia positiva e il suo entusiasmo contagioso ispirano tutti coloro che la incontrano. Con la sua guida esperta e il suo incoraggiamento costante, Giulia aiuta i suoi allievi a diventare più forti e sicuri di sé sia fisicamente che mentalmente.'),
 (10, 'fdsf', 'fdsfsd', 'fdsfsdf11111111212121dfsfdsgfdhdfgdfgldskjnljksdnfkjlgvnksdjfngvbjkasdfnvjkadsngjkdsNFGKJADSnfkjsdNJFGHJKSdlKLLfndjsjdfhuredshgusierhgudrsghnfdusjihgnuidasghauirjehngfdjkgnhauirehgnuijredg'),
 (11, 'Dfa', 'Dgfg1', '12'),
-(12, 'fgewfwa', 'ffewafgawe', '3333333333333333333333333333333333333333333333333333');
+(14, 'dfsg', 'fdsfdsfg', 'gLorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae. Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit vitae doloribus aperiam totam? Itaque, nihil ducimus autem veritatis architecto eius corporis assumenda perferendis ratione in, facilis porro inventore! Id, molestiae.');
 
 -- --------------------------------------------------------
 
@@ -162,8 +164,7 @@ INSERT INTO `utente` (`id`, `nome`, `cognome`, `data_nascita`) VALUES
 (10, 'Moraru', 'Liviu', '2004-01-24'),
 (18, 'gsdgds', 'gdsgds', '2023-05-30'),
 (19, 'T', 'T2', '2015-06-03'),
-(59, 'Taata', 'Baaak', '2023-05-30'),
-(60, 'fdsadfT', 'fsdfsdT', '2023-05-01');
+(59, 'GG', 'GGG', '1987-11-19');
 
 --
 -- Indici per le tabelle scaricate
@@ -211,13 +212,13 @@ ALTER TABLE `utente`
 -- AUTO_INCREMENT per la tabella `corso`
 --
 ALTER TABLE `corso`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT per la tabella `istruttore`
 --
 ALTER TABLE `istruttore`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT per la tabella `prenotazione`
@@ -229,7 +230,7 @@ ALTER TABLE `prenotazione`
 -- AUTO_INCREMENT per la tabella `utente`
 --
 ALTER TABLE `utente`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Limiti per le tabelle scaricate
